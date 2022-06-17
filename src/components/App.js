@@ -1,12 +1,31 @@
 import ContactList from "./ContactList";
+import TopControls from "./TopControls";
+import ContactEdit from "./ContactEdit";
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './app.css';
+import ContactsContext from "./ContactsContext";
 
 function App() {
+  const [showAddContact, setShowAddContact] = React.useState(false);
+
+  const addContact = (contact) => {
+    setShowAddContact(true);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-      </header>
-      <ContactList contacts={["contact1","contact2","contact3"]}></ContactList>
-    </div>
+    <ContactsContext.Provider value={{}}>
+      <div className="App">
+        <header className="App-header">
+        </header>
+
+        <ContactList></ContactList>
+        <TopControls addContact={addContact} className="top-controls"></TopControls>
+
+        <ContactEdit show={showAddContact} handleClose={()=>setShowAddContact(false)}>
+        </ContactEdit>
+      </div>
+    </ContactsContext.Provider>
   );
 }
 

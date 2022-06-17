@@ -4,10 +4,14 @@ const Contact = (props) => {
     const {contactData} = props;
     
     return (
-     <div>
-        {contactData}
-        <ContactControls></ContactControls>
-     </div>
+    <>
+    <div className="contact-preview">
+        {contactData.name}
+        {contactData.email}
+        {contactData.phone}
+    </div>
+    <ContactControls></ContactControls>
+    </>
     )
 }
 
