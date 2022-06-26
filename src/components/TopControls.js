@@ -1,10 +1,14 @@
+import React from "react";
+import { ContactsContext, } from "./ContactsContext";
+
+// Controls targeting all contacts
 const ContactControls = (props) => {
-  const {addContact} = props;
+  const { setShowContact } = React.useContext(ContactsContext);
   return (
-  <div>
-      <button onClick={addContact}>Add</button>
-  </div>
+      <div className="top-controls">
+        <button onClick={() => setShowContact(true)}>Add</button>
+      </div>
   );
-}
+};
 
 export default ContactControls;

@@ -1,3 +1,44 @@
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  height: 100vh;
+  /* using position relative so we can position top controls */
+  position: relative;
+}
+
+.top-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  margin: auto; 
+  width: fit-content;
+}
+
+.contact-list {
+  max-width: 800px;
+  margin: auto;
+  height: 100%;
+}
 .contact-preview {
-  background-color: red;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  border: solid gray 1px;
+}
+
+.contact-preview-child {
+  display: flex;
+  gap: 20px;
+}
+
+.contact-controls {
+  display: flex;
+  gap: 5px;
+}
+
+body {
+  background-color: #f7f7f7;
 }

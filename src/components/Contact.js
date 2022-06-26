@@ -1,18 +1,21 @@
-import ContactControls from './ContactControls'
+import ContactControls from "./ContactControls";
 
 const Contact = (props) => {
-    const {contactData} = props;
-    
-    return (
+  const { contactData } = props;
+  return (
     <>
-    <div className="contact-preview">
-        {contactData.name}
-        {contactData.email}
-        {contactData.phone}
-    </div>
-    <ContactControls></ContactControls>
+      <div className="contact-preview">
+        <div className="contact-preview-child align-left">
+          <span>{contactData.name}</span>
+          <span>{contactData.email}</span>
+          <span>{contactData.phone}</span>
+        </div>
+        <div className="contact-preview-child align-right">
+          <ContactControls></ContactControls>
+        </div>
+      </div>
     </>
-    )
-}
+  );
+};
 
-export default Contact
+export default Contact;

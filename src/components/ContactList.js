@@ -5,15 +5,13 @@ import useLocalStorage from "./useLocalStorage";
 const ContactList = (props) => {
     // Correct: props={contacts:[contact1, contact2, ..]}
     // Actual:  props={contacts: {contacts: [contact1, contact2, ..]}}
-    const [contacts, ] = useLocalStorage("contacts",[]);
+    const [contacts, ] = useLocalStorage("contacts", []);
     return (
-    <>
-    <div className="contactList">
+    <div className="contact-list">
         {contacts.map(contact => (
             <Contact key={contact.id} contactData={contact}></Contact>
         ))}
     </div>
-    </>
     );
 }
 
