@@ -42,3 +42,10 @@
 body {
   background-color: #f7f7f7;
 }
+
+.snackMessage{
+    background: rgba(34, 34, 34);
+    display: flex;
+    max-width: 300px;
+    margin: auto;
+}

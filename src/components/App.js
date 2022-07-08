@@ -8,21 +8,21 @@ import {
   ContactsContext,
   SHOW_MODAL,
 } from "./ContactsContext";
+import EmailEdit from './EmailEdit';
 
 function App() {
-  const { showModal, setShowContact } = React.useContext(ContactsContext);
-
-  // React.useEffect(
-  //   ()=>{
-  //     emailjs.init(process.env.REACT_APP_EMAILJS_API_KEY)
-  //     emailjs.send('<Replace with your service id>', '<Replace with your template id', {subject: 'Hello you got a new msg', content: 'msg content', to_email: 'hello@abc.gmail'})
-  //   }, [])
+  const { showModal, activityEmail, setShowContact, setShowEmail} = React.useContext(ContactsContext);
 
   return (
       <div className="App">
         <header className="App-header"></header>
         <ContactList></ContactList>
         <TopControls></TopControls>
+
+        <EmailEdit activityEmail={activityEmail}
+          show={showModal === SHOW_MODAL.Email}
+          handleClose={() => setShowEmail(false)}
+        ></EmailEdit>
 
         <ContactEdit
           show={showModal === SHOW_MODAL.AddContact}

@@ -11,7 +11,7 @@ const Contact = (props) => {
           <span>{contactData.phone}</span>
         </div>
         <div className="contact-preview-child align-right">
-          <ContactControls></ContactControls>
+          <ContactControls toEmail={contactData.email} contactId={contactData.id}></ContactControls>
         </div>
       </div>
     </>
