@@ -6,12 +6,12 @@ const Contact = (props) => {
     <>
       <div className="contact-preview">
         <div className="contact-preview-child align-left">
-          <span>{contactData.name}</span>
-          <span>{contactData.email}</span>
-          <span>{contactData.phone}</span>
+          <span className="contact-field">{contactData.name}</span>
+          <span className="contact-field">{contactData.email}</span>
+          <span className="contact-field">{contactData.phone}</span>
         </div>
         <div className="contact-preview-child align-right">
-          <ContactControls toEmail={contactData.email} contactId={contactData.id}></ContactControls>
+          <ContactControls contactId={contactData.id} toEmail={contactData.email}></ContactControls>
         </div>
       </div>
     </>

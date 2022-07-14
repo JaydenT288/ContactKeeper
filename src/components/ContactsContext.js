@@ -1,5 +1,7 @@
 import React from "react";
 import useLocalStorage from "./useLocalStorage";
+import Emitter from './Emitter';
+import uuid from 'react-uuid'
 
 
 export const SHOW_MODAL = {
@@ -13,6 +15,7 @@ export const ContactsProvider = ({ children }) => {
   const [showModal, setShowModal] = React.useState(SHOW_MODAL.None);
   const [activityEmail, setActivityEmail] = React.useState(''); 
   const [contacts , setContacts] = useLocalStorage("contacts",[])
+
 
   const setShowContact = (shouldShow) => {
     if (shouldShow) {
@@ -36,6 +39,18 @@ export const ContactsProvider = ({ children }) => {
   const deleteContact = (contactId) =>{
     const newContacts = contacts.filter((contact) => contact.id !== contactId)
     setContacts(newContacts)
+    Emitter.emit('app_message',{payload: "delete successful"})
+  }
+
+  const addContact = (newContact) => {
+    const id = uuid()
+    setContacts([...contacts, { id, ...newContact }]);
+    Emitter.emit('app_message',{payload:"success"})
+  }
+
+  const updateUserContact = (contactId, contact) => {
+    const newContacts = contacts.filter((contact) => contact.id !== contactId);
+    setContacts([...newContacts, contact]);
   }
 
   return (
@@ -43,7 +58,10 @@ export const ContactsProvider = ({ children }) => {
       value={{
         showModal,
         activityEmail,
+        contacts,
+        addContact,
         deleteContact,
+        updateUserContact,
         setShowContact,
         setShowEmail,
       }}

@@ -1,17 +1,23 @@
 import React from 'react'
 import {Modal} from 'react-bootstrap'
-import useLocalStorage from './useLocalStorage';
-import uuid from 'react-uuid'
+import { ContactsContext } from './ContactsContext';
 
 
 const ContactEdit = (props) => {
-  const {show, handleClose} = props;
-  const [contact, setContact] = React.useState({})
-  const [contacts, setContacts] = useLocalStorage('contacts', [])
-  const addContact = () => {
-    const id = uuid()
-    setContacts([...contacts, {id, ...contact}])
+  const {show, handleClose, userId} = props;
+  const {addContact, updateUserContact, contacts} = React.useContext(ContactsContext);
+  const defaultContact = contacts.filter(contact => contact.id === userId);
+  const [contact, setContact] = React.useState(defaultContact ? defaultContact[0] : {});
+  const modalTitle = userId ? 'Edit contact' : 'Add contact';
+  const onSubmit = (userId, contact) => {
+    if (userId) {
+      updateUserContact(userId, contact);
+    } else {
+      addContact(contact);
+    }
   }
+
+
 
   function updateContact(field, newValue) {
     switch (field) {
@@ -34,23 +40,39 @@ const ContactEdit = (props) => {
     <Modal show={show} onHide={handleClose}>
       {/* bootstrap closeButton */}
       <Modal.Header closeButton>
-        <Modal.Title>Add contact</Modal.Title>
+      <Modal.Title>{modalTitle}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <form onSubmit={addContact}>
-          <label htmlFor="name">Name</label>
-          {/* 错误 <input type="text" onChange={ee => setContact({name:ee.target.value })}></input> */}
-          <input type="text" onChange={ee => updateContact('name', ee.target.value)}></input>
-          <br/>
-          <label htmlFor="email">Email</label>
-          <input type="text" onChange={ee => updateContact('email', ee.target.value)}></input>
-          <br/>
-          <label htmlFor="phone">Phone number</label>
-          <input type="text" onChange={ee => updateContact('phone', ee.target.value)}></input>
-          <br/>
-          <button type="submit">
-          Submit
-          </button>
+          <form onSubmit={(ee) => {
+            // Must prevent default so we don't refresh the page.
+            ee.preventDefault();
+            onSubmit(userId, contact);
+            handleClose();
+          }}>
+           <label className="contact-label" htmlFor="name">Name</label>
+            {/* 错误 <input type="text" onChange={ee => setContact({name:ee.target.value })}></input> */}
+            <input
+              type="text"
+              onChange={(ee) => updateContact("name", ee.target.value)}
+              value={contact?.name || ''}
+            ></input>
+            <br />
+            <label className="contact-label" htmlFor="email">Email</label>
+            <input
+              type="text"
+              onChange={(ee) => updateContact("email", ee.target.value)}
+              value={contact?.email || ''}
+            ></input>
+            <br />
+            <label className="contact-label" htmlFor="phone">Phone number</label>
+            <input
+              type="text"
+              onChange={(ee) => updateContact("phone", ee.target.value)}
+              value={contact?.phone || ''}
+            ></input>
+            <br />
+            <br></br>
+            <button className="btn btn-primary" type="submit">Submit</button>
         </form>
       </Modal.Body>
     </Modal>

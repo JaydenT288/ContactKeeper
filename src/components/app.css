@@ -8,9 +8,13 @@
   position: relative;
 }
 
+.App-header {
+  padding: 20px;
+}
+
 .top-controls {
-  position: absolute;
-  bottom: 20px;
+  position: fixed;
+  bottom: 30px;
   left: 0;
   right: 0;
   margin: auto; 
@@ -20,18 +24,44 @@
 .contact-list {
   max-width: 800px;
   margin: auto;
-  height: 100%;
+  margin-top: 20px;
+  height: calc(100% - 200px);
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  gap: 5px;
+  overflow: auto;
 }
+
 .contact-preview {
   padding: 15px;
   display: flex;
   justify-content: space-between;
-  border: solid gray 1px;
+  border: solid gray 2px;
+  border-radius: 5px;
+}
+
+.contact-preview:hover {
+  background-color: rgba(108,122,137, 0.5);
 }
 
 .contact-preview-child {
   display: flex;
   gap: 20px;
+}
+
+.contact-field {
+  display: inline-block;
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* Move text down for visual alignment */
+  margin-top: 5px;
+}
+
+.contact-label {
+  display: inline-block;
+  width: 150px;
 }
 
 .contact-controls {
@@ -41,6 +71,16 @@
 
 body {
   background-color: #f7f7f7;
+}
+
+.emailEdit--emailSubject {
+  width: 80%;
+}
+
+.emailEdit--emailContent {
+  resize: none;
+  height: 200px;
+  width: 80%;
 }
 
 .snackMessage{
@@ -54,8 +94,18 @@ body {
   position: fixed;
   z-index: 1;
   left: 10%;
-  bottom: 20px;
+  bottom: 30px;
   font-size: 1rem;  
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 1s forwards;
 }
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+}
+
